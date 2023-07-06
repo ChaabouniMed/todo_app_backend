@@ -9,7 +9,6 @@ import { log } from 'console';
 
 @Injectable()
 export class UsersService {
-
   constructor(
     @InjectModel('User') private readonly userModel: Model<UserEntity>,
   ) {}
@@ -70,7 +69,7 @@ export class UsersService {
     return updated;
   }
 
-  async deleteUser(id: string) {
+  async removeUser(id: string) {
     let result;
     try {
       await this.userModel.findByIdAndDelete(id);

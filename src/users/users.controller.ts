@@ -11,6 +11,7 @@ import {
   Post,
   Query,
   Req,
+  UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -21,12 +22,14 @@ import { UserEntity } from './user.entity';
 import { v4 as uuid } from 'uuid';
 import { CustomValidationPipe } from './pipes/validation.pipe';
 import { UsersService } from './users.service';
+import { AuthGuard } from 'src/auth/guards/auth.guard';
 
 @Controller('user')
 // @UsePipes(ValidationPipe)  =>  zeyed khatr aameltha fl main donc temchi aal kol
 export class UsersController {
   constructor(private readonly userService: UsersService){}
 
+  @UseGuards(AuthGuard)
   @Get()
   findAll(
     // @Query("username", CustomValidationPipe) username: string   // postman : localhost:3000/user?username=mohamed
@@ -71,6 +74,6 @@ export class UsersController {
   delete(@Param('id'
   // , ParseUUIDPipe
   ) id: string) {
-    return this.userService.deleteUser(id);
+    return this.userService.removeUser(id);
   }
 }

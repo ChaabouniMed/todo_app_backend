@@ -1,22 +1,53 @@
-import * as mongoose from 'mongoose'
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 
-export const UserSchema = new mongoose.Schema({
+export type UserDocument = UserEntity & Document;
 
-    username: {type: String,required: true},
-
-    email: {type: String,required: true},
-
-    password: {type: String,required: true},
-})
-
+@Schema()
 export class UserEntity {
+  @Prop({ required: true, unique: true })
+  username: string;
 
-    id: string;
+  @Prop({ required: true, unique: true })
+  email: string;
 
-    username: string;
+  @Prop({ required: true })
+  password: string;
 
-    email: string;
-
-    password: string;
-    
+	@Prop()
+  refreshToken: string;
 }
+
+export const UserSchema = SchemaFactory.createForClass(UserEntity);
+
+
+
+
+
+
+
+
+// import * as mongoose from 'mongoose'
+
+// export const UserSchema = new mongoose.Schema({
+
+//     username: {type: String,required: true},
+
+//     email: {type: String,required: true},
+
+//     password: {type: String,required: true},
+
+// })
+
+// export class UserEntity {
+
+//     id: string;
+
+//     username: string;
+
+//     email: string;
+
+//     password: string;
+    
+// }
+
